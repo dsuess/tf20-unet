@@ -134,8 +134,13 @@ class Unet(k.Model):
         >>> model = Unet(output_channels=4, num_filters=[64, 32])
         >>> tuple(model(x).shape)
         (1, 32, 32, 4)
+
+        >>> x = tf.zeros((1, 416, 416, 1))
+        >>> model = Unet(output_channels=3, num_filters=[64, 128, 256])
+        >>> tuple(model(x).shape)
+        (1, 416, 416, 3)
         """
         y, intermediates = self.encoder(x)
         y = self.bottleneck(y)
-        y = self.decoder(y, intermediates)
+        y = self.decoder(y, intermediates[::-1])
         return self.tail(y)
