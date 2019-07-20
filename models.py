@@ -123,7 +123,7 @@ class Unet(k.Model):
         layers = [
             k.layers.Conv2D(filters=features, kernel_size=3, padding='same', **kwargs),
             k.layers.Conv2D(filters=features, kernel_size=3, padding='same', **kwargs)]
-        kwargs = {**kwargs, 'activation': None}
+        kwargs = {**kwargs, 'activation': 'sigmoid'}
         layers += [
             k.layers.Conv2D(filters=output_channels, kernel_size=3, padding='same', **kwargs)]
         return k.Sequential(layers, name='tail')
